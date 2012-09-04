@@ -1,12 +1,15 @@
 <?php
 
-class SignupController extends Phalcon_Controller {
+class SignupController extends Phalcon\Mvc\Controller
+{
 
-	function indexAction(){
+	public function indexAction()
+	{
 
 	}
 
-	function registerAction(){
+	public function registerAction()
+	{
 
 		//Request variables from html form
 		$name = $this->request->getPost('name', 'string');
