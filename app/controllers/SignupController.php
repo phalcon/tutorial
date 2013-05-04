@@ -23,7 +23,7 @@ class SignupController extends Phalcon\Mvc\Controller
 		if ($user->save() == true) {
 			echo 'Thanks for register!';
 		} else {
-			echo 'Sorry, the next problems was generated: ';
+			echo 'Sorry, the next problems were generated: ';
 			foreach ($user->getMessages() as $message){
 				echo $message->getMessage(), '<br/>';
 			}
