@@ -1,6 +1,14 @@
 <?php
 
-class Users extends Phalcon\Mvc\Model
+use Phalcon\Mvc\Model;
+
+class Users extends Model
 {
+
+	public $id;
+
+	public $name;
+
+	public $email;
 
 }
