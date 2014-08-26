@@ -1,6 +1,8 @@
 <?php
 
-class SignupController extends Phalcon\Mvc\Controller
+use Phalcon\Mvc\Controller;
+
+class SignupController extends Controller
 {
 
 	public function indexAction()
@@ -11,23 +13,24 @@ class SignupController extends Phalcon\Mvc\Controller
 	public function registerAction()
 	{
 
-		//Request variables from html form
-		$name = $this->request->getPost('name', 'string');
-		$email = $this->request->getPost('email', 'email');
-
 		$user = new Users();
-		$user->name = $name;
-		$user->email = $email;
 
-		//Store and check for errors
-		if ($user->save() == true) {
-			echo 'Thanks for register!';
+		// Store and check for errors
+		$success = $user->save(
+			$this->request->getPost(),
+			array('name', 'email')
+		);
+
+		if ($success) {
+			echo "Thanks for registering!";
 		} else {
-			echo 'Sorry, the next problems were generated: ';
-			foreach ($user->getMessages() as $message){
-				echo $message->getMessage(), '<br/>';
+			echo "Sorry, the following problems were generated: ";
+			foreach ($user->getMessages() as $message) {
+				echo $message->getMessage(), "<br/>";
 			}
 		}
+
+		$this->view->disable();
 	}
 
 }

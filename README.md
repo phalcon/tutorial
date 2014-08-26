@@ -15,7 +15,7 @@ Get Started
 
 To run this application on your machine, you need at least:
 
-* PHP >= 5.3.11
+* PHP >= 5.3.21
 * Apache Web Server with mod rewrite enabled
-* Phalcon Framework extension enabled (>= 0.5.x)
+* Phalcon Framework extension enabled (>= 1.3.x)
 

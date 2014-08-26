@@ -1,9 +1,17 @@
 <?php
 
+use Phalcon\Loader;
+use Phalcon\Tag;
+use Phalcon\Mvc\Url;
+use Phalcon\Mvc\View;
+use Phalcon\Mvc\Application;
+use Phalcon\DI\FactoryDefault;
+use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
+
 try {
 
-    //Register an autoloader
-    $loader = new \Phalcon\Loader();
+    // Register an autoloader
+    $loader = new Loader();
     $loader->registerDirs(
         array(
             '../app/controllers/',
@@ -11,31 +19,43 @@ try {
         )
     )->register();
 
-    //Create a DI
-    $di = new Phalcon\DI\FactoryDefault();
+    // Create a DI
+    $di = new FactoryDefault();
 
-    //Set the database service
-    $di->set('db', function(){
-        return new \Phalcon\Db\Adapter\Pdo\Mysql(array(
-            "host" => "localhost",
+    // Set the database service
+    $di['db'] = function() {
+        return new DbAdapter(array(
+            "host"     => "localhost",
             "username" => "root",
             "password" => "secret",
-            "dbname" => "test_db"
+            "dbname"   => "tutorial"
         ));
-    });
+    };
 
-    //Setting up the view component
-    $di->set('view', function(){
-        $view = new \Phalcon\Mvc\View();
+    // Setting up the view component
+    $di['view'] = function() {
+        $view = new View();
         $view->setViewsDir('../app/views/');
         return $view;
-    });
+    };
 
-    //Handle the request
-    $application = new \Phalcon\Mvc\Application();
-    $application->setDI($di);
+    // Setup a base URI so that all generated URIs include the "tutorial" folder
+    $di['url'] = function() {
+        $url = new Url();
+        $url->setBaseUri('/tutorial/');
+        return $url;
+    };
+
+    // Setup the tag helpers
+    $di['tag'] = function() {
+        return new Tag();
+    };
+
+    // Handle the request
+    $application = new Application($di);
+
     echo $application->handle()->getContent();
 
-} catch(\Phalcon\Exception $e) {
-     echo "PhalconException: ", $e->getMessage();
+} catch (Exception $e) {
+     echo "Exception: ", $e->getMessage();
 }
