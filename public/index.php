@@ -1,61 +1,64 @@
 <?php
 
 use Phalcon\Loader;
-use Phalcon\Tag;
-use Phalcon\Mvc\Url;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\Application;
-use Phalcon\DI\FactoryDefault;
+use Phalcon\Di\FactoryDefault;
+use Phalcon\Mvc\Url as UrlProvider;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 
-try {
 
-    // Register an autoloader
-    $loader = new Loader();
-    $loader->registerDirs(
-        array(
-            '../app/controllers/',
-            '../app/models/'
-        )
-    )->register();
 
-    // Create a DI
-    $di = new FactoryDefault();
+// Register an autoloader
+$loader = new Loader();
 
-    // Set the database service
-    $di['db'] = function() {
-        return new DbAdapter(array(
-            "host"     => "localhost",
-            "username" => "root",
-            "password" => "secret",
-            "dbname"   => "tutorial"
-        ));
-    };
+$loader->registerDirs(
+    [
+        "../app/controllers/",
+        "../app/models/",
+    ]
+);
 
-    // Setting up the view component
-    $di['view'] = function() {
+$loader->register();
+
+
+
+// Create a DI
+$di = new FactoryDefault();
+
+// Setup the view component
+$di->set(
+    "view",
+    function () {
         $view = new View();
-        $view->setViewsDir('../app/views/');
+
+        $view->setViewsDir("../app/views/");
+
         return $view;
-    };
+    }
+);
 
-    // Setup a base URI so that all generated URIs include the "tutorial" folder
-    $di['url'] = function() {
-        $url = new Url();
-        $url->setBaseUri('/tutorial/');
+// Setup a base URI so that all generated URIs include the "tutorial" folder
+$di->set(
+    "url",
+    function () {
+        $url = new UrlProvider();
+
+        $url->setBaseUri("/tutorial/");
+
         return $url;
-    };
+    }
+);
 
-    // Setup the tag helpers
-    $di['tag'] = function() {
-        return new Tag();
-    };
 
+
+$application = new Application($di);
+
+try {
     // Handle the request
-    $application = new Application($di);
+    $response = $application->handle();
 
-    echo $application->handle()->getContent();
-
-} catch (Exception $e) {
-     echo "Exception: ", $e->getMessage();
+    $response->send();
+} catch (\Exception $e) {
+    echo "Exception: ", $e->getMessage();
 }
