@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.5.36, for osx10.9 (i386)
 --
--- Host: localhost    Database: tutorial
+-- Host: localhost    Database: tutorial1
 -- ------------------------------------------------------
 -- Server version	5.5.36
 
@@ -23,10 +23,11 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(70) NOT NULL,
-  `email` varchar(70) NOT NULL,
-  PRIMARY KEY (`id`)
+    `id`    int(10)     unsigned NOT NULL AUTO_INCREMENT,
+    `name`  varchar(70)          NOT NULL,
+    `email` varchar(70)          NOT NULL,
+
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
