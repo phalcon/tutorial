@@ -1,11 +1,11 @@
 <?php
 
-use Phalcon\Loader;
-use Phalcon\Mvc\View;
-use Phalcon\Mvc\Application;
-use Phalcon\Di\FactoryDefault;
-use Phalcon\Mvc\Url as UrlProvider;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
+use Phalcon\Di\FactoryDefault;
+use Phalcon\Loader;
+use Phalcon\Mvc\Application;
+use Phalcon\Mvc\Url as UrlProvider;
+use Phalcon\Mvc\View;
 
 define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/app');
@@ -31,7 +31,7 @@ $di['view'] = function() {
 
 // Setup a base URI so that all generated URIs include the "tutorial" folder
 $di['url'] = function() {
-    $url = new Url();
+    $url = new UrlProvider();
     $url->setBaseUri('/');
     return $url;
 };
