@@ -4,14 +4,18 @@ use Phalcon\Mvc\Controller;
 
 class SignupController extends Controller
 {
-
+    /**
+     * Show form to register a new user
+     */
     public function indexAction()
     {
     }
 
+    /**
+     * Register new user and show message
+     */
     public function registerAction()
     {
-
         $user = new Users();
 
         // Store and check for errors
@@ -20,15 +24,16 @@ class SignupController extends Controller
             ['name', 'email']
         );
 
+        // passing the result to the view
+        $this->view->success = $success;
+
         if ($success) {
-            echo "Thanks for registering!";
+            $message = "Thanks for registering!";
         } else {
-            echo "Sorry, the following problems were generated: ";
-            foreach ($user->getMessages() as $message) {
-                echo $message->getMessage(), "<br/>";
-            }
+            $message = "Sorry, the following problems were generated:<br>" . implode('<br>', $user->getMessages());
         }
 
-        $this->view->disable();
+        // passing a message to the view
+        $this->view->message = $message;
     }
 }
