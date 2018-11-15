@@ -17,8 +17,7 @@ $loader->registerDirs(
         APP_PATH . '/controllers/',
         APP_PATH . '/models/',
     ]
-)->register()
-;
+)->register();
 
 // Create a DI
 $di = new FactoryDefault();
