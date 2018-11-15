@@ -18,7 +18,7 @@ run.config:
         - opcache
   extra_packages:
     - mysql-client
-    - php72-phalcon-3.3.2
+    - php72-phalcon-3.4.1
   extra_steps:
     - echo 'extension=phalcon.so' >> "/data/etc/php/dev_php.ini"
     - echo 'extension=phalcon.so' >> "/data/etc/php/prod_php.ini"
