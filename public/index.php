@@ -4,7 +4,7 @@ use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Loader;
 use Phalcon\Mvc\Application;
-use Phalcon\Mvc\Url as UrlProvider;
+use Phalcon\Url as UrlProvider;
 use Phalcon\Mvc\View;
 
 define('BASE_PATH', dirname(__DIR__));
@@ -49,7 +49,7 @@ $di['db'] = function () {
 // Handle the request
 try {
     $application = new Application($di);
-    echo $application->handle()->getContent();
+    echo $application->handle($_SERVER['REQUEST_URI'])->getContent();
 } catch (Exception $e) {
     echo "Exception: ", $e->getMessage();
 }

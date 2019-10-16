@@ -1,7 +1,15 @@
 <?php
 
+use Phalcon\Http\Request;
 use Phalcon\Mvc\Controller;
+use Phalcon\Mvc\View;
 
+/**
+ * Class SignupController
+ *
+ * @property Request $request
+ * @property View    $view
+ */
 class SignupController extends Controller
 {
     /**
@@ -21,7 +29,10 @@ class SignupController extends Controller
         // Store and check for errors
         $success = $user->save(
             $this->request->getPost(),
-            ['name', 'email']
+            [
+                'name',
+                'email'
+            ]
         );
 
         // passing the result to the view
@@ -30,7 +41,8 @@ class SignupController extends Controller
         if ($success) {
             $message = "Thanks for registering!";
         } else {
-            $message = "Sorry, the following problems were generated:<br>" . implode('<br>', $user->getMessages());
+            $message = "Sorry, the following problems were generated:<br>"
+                     . implode('<br>', $user->getMessages());
         }
 
         // passing a message to the view
