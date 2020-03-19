@@ -25,7 +25,9 @@ You can also run the application using [nanobox.io][8]. Installation instruction
 * Clone the repository to a folder on your machine
 * Navigate to that folder
 * Run `nanobox run`
-* After the application compiles you will see `/app $` in your terminal. Type `php-server` to run apache
+* After the application compiles you will see `/app $` in your terminal. 
+* Run `./storage/ci/import_db.sh` to init mysql database
+* Type `php-server` to run apache
 * Navigate to the IP address displayed in the console.
 
 ## License
