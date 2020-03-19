@@ -26,14 +26,17 @@ class SignupController extends Controller
     {
         $user = new Users();
 
-        // Store and check for errors
-        $success = $user->save(
+        //assign value from the form to $user
+        $user->assign(
             $this->request->getPost(),
             [
                 'name',
                 'email'
             ]
         );
+
+        // Store and check for errors
+        $success = $user->save();
 
         // passing the result to the view
         $this->view->success = $success;
