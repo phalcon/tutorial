@@ -32,7 +32,7 @@ You can also run the application using [nanobox.io][8]. Installation instruction
 
 Phalcon Tutorial is open-sourced software licensed under the [New BSD License][6]. © Phalcon Framework Team and contributors
 
-[1]: https://docs.phalconphp.com/en/latest/tutorial-base
+[1]: https://docs.phalcon.io/4.0/en/tutorial-basic
 [2]: http://httpd.apache.org/
 [3]: http://httpd.apache.org/docs/current/mod/mod_rewrite.html
 [4]: http://nginx.org/
