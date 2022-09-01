@@ -16,13 +16,14 @@ class SignupController extends Controller
      */
     public function registerAction()
     {
-        $user = new Users();
+        $post = $this->request->getPost();
 
         // Store and check for errors
-        $success = $user->save(
-            $this->request->getPost(),
-            ['name', 'email']
-        );
+        $user        = new Users();
+        $user->name  = $post['name'];
+        $user->email = $post['email'];
+        // Store and check for errors
+        $success = $user->save();
 
         // passing the result to the view
         $this->view->success = $success;
@@ -30,7 +31,8 @@ class SignupController extends Controller
         if ($success) {
             $message = "Thanks for registering!";
         } else {
-            $message = "Sorry, the following problems were generated:<br>" . implode('<br>', $user->getMessages());
+            $message = "Sorry, the following problems were generated:<br>"
+                . implode('<br>', $user->getMessages());
         }
 
         // passing a message to the view

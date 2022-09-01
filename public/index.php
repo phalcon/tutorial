@@ -1,8 +1,8 @@
 <?php
 
+use Phalcon\Autoload\Loader;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Di\FactoryDefault;
-use Phalcon\Loader;
 use Phalcon\Mvc\Application;
 use Phalcon\Mvc\Url as UrlProvider;
 use Phalcon\Mvc\View;
@@ -12,44 +12,47 @@ define('APP_PATH', BASE_PATH . '/app');
 
 // Register an autoloader
 $loader = new Loader();
-$loader->registerDirs(
+$loader->setDirectories(
     [
         APP_PATH . '/controllers/',
         APP_PATH . '/models/',
     ]
-)->register();
+)
+       ->register()
+;
 
 // Create a DI
-$di = new FactoryDefault();
+$container = new FactoryDefault();
 
 // Setting up the view component
-$di['view'] = function () {
+$container['view'] = function () {
     $view = new View();
     $view->setViewsDir(APP_PATH . '/views/');
     return $view;
 };
 
 // Setup a base URI so that all generated URIs include the "tutorial" folder
-$di['url'] = function () {
+$container['url'] = function () {
     $url = new UrlProvider();
     $url->setBaseUri('/');
     return $url;
 };
 
 // Set the database service
-$di['db'] = function () {
+$container['db'] = function () {
     return new DbAdapter([
-        "host"     => getenv('DATA_MYSQL_HOST'),
-        "username" => getenv('DATA_MYSQL_USER'),
-        "password" => getenv('DATA_MYSQL_PASS'),
-        "dbname"   => "gonano",
+        "host"     => 'localhost',
+        "username" => 'your_db_user_name',
+        "password" => 'your_db_password',
+        "dbname"   => 'tutorial',
     ]);
 };
 
 // Handle the request
 try {
-    $application = new Application($di);
-    echo $application->handle()->getContent();
+    $application = new Phalcon\Mvc\Application($container);
+    $response    = $application->handle($_SERVER["REQUEST_URI"]);
+    $response->send();
 } catch (Exception $e) {
     echo "Exception: ", $e->getMessage();
 }
