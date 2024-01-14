@@ -3,4 +3,4 @@
 mysql --user=$DATA_MYSQL_USER \
       --password=$DATA_MYSQL_PASS \
       --host=$DATA_MYSQL_HOST \
-      gonano < /app/storage/schemas/tutorial.sql
+      phalcon_tutorial < /code/resources/schemas/tutorial.sql
