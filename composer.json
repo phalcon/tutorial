@@ -27,18 +27,11 @@
         "pds/skeleton": "^1.0"
     },
     "require-dev": {
-        "phalcon/ide-stubs": "^v5.0.1",
-        "squizlabs/php_codesniffer": "^3.7",
-        "vimeo/psalm": "^4.27"
+        "phalcon/ide-stubs": "^v5.0.1"
     },
     "autoload": {
         "psr-4": {
             "Tutorial\\": "src/"
         }
-    },
-    "scripts": {
-        "cs": "./vendor/bin/phpcs --standard=phpcs.xml",
-        "cs-fix": "./vendor/bin/phpcbf --standard=phpcs.xml",
-        "analyze": "./vendor/bin/psalm"
     }
 }
