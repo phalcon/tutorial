@@ -8,17 +8,18 @@ use Phalcon\Mvc\Url as UrlProvider;
 use Phalcon\Mvc\View;
 
 define('BASE_PATH', dirname(__DIR__));
-define('APP_PATH', BASE_PATH . '/app');
+define('APP_PATH', BASE_PATH . '/src');
 
 // Register an autoloader
 $loader = new Loader();
-$loader->setDirectories(
-    [
-        APP_PATH . '/controllers/',
-        APP_PATH . '/models/',
-    ]
-)
-       ->register()
+$loader
+    ->setDirectories(
+        [
+            APP_PATH . '/controllers/',
+            APP_PATH . '/models/',
+        ]
+    )
+    ->register()
 ;
 
 // Create a DI
@@ -40,17 +41,19 @@ $container['url'] = function () {
 
 // Set the database service
 $container['db'] = function () {
-    return new DbAdapter([
-        "host"     => 'localhost',
-        "username" => 'your_db_user_name',
-        "password" => 'your_db_password',
-        "dbname"   => 'tutorial',
-    ]);
+    return new DbAdapter(
+        [
+            "host"     => 'tutorial-mysql',
+            "username" => 'phalcon',
+            "password" => 'secret',
+            "dbname"   => 'phalcon_tutorial',
+        ]
+    );
 };
 
 // Handle the request
 try {
-    $application = new Phalcon\Mvc\Application($container);
+    $application = new Application($container);
     $response    = $application->handle($_SERVER["REQUEST_URI"]);
     $response->send();
 } catch (Exception $e) {
