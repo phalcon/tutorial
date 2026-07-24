@@ -69,7 +69,6 @@ alias mv='mv -i'
 # untar
 alias untar='tar xvf'
 
-# Zephir related
-alias untar='tar xvf'
-
+# Make project binaries available
 PATH=$PATH:./vendor/bin
+export PATH
