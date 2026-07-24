@@ -1,41 +1,43 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Tutorial\Controllers;
+
 use Phalcon\Mvc\Controller;
+use Tutorial\Models\Users;
 
 class SignupController extends Controller
 {
     /**
-     * Show form to register a new user
+     * Show the form to register a new user
      */
-    public function indexAction()
+    public function indexAction(): void
     {
     }
 
     /**
-     * Register new user and show message
+     * Register a new user and show a message
      */
-    public function registerAction()
+    public function registerAction(): void
     {
         $post = $this->request->getPost();
 
-        // Store and check for errors
         $user        = new Users();
         $user->name  = $post['name'];
         $user->email = $post['email'];
-        // Store and check for errors
+
         $success = $user->save();
 
-        // passing the result to the view
         $this->view->success = $success;
 
         if ($success) {
-            $message = "Thanks for registering!";
+            $message = 'Thanks for registering!';
         } else {
-            $message = "Sorry, the following problems were generated:<br>"
+            $message = 'Sorry, the following problems were generated:<br>'
                 . implode('<br>', $user->getMessages());
         }
 
-        // passing a message to the view
         $this->view->message = $message;
     }
 }
