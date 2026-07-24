@@ -1,0 +1,18 @@
+parameters:
+    paths:
+        - ../src
+        - ../public/index.php
+    level: 6
+    reportUnmatchedIgnoredErrors: false
+    tmpDir: ../tests/_output
+    bootstrapFiles:
+        - ../vendor/autoload.php
+    ignoreErrors:
+        # Phalcon models expose magic static finders (findFirstBy<Field>, findBy<Field>)
+        - '#Call to an undefined static method Tutorial\\Models\\[A-Za-z]+::(find|findFirst)By[A-Za-z]+\(\)#'
+        # Phalcon\Mvc\Model is generic (@template T) in the v6 source; the loaded v5
+        # runtime model is not, so the model does not parametrize it.
+        - '#extends generic class Phalcon\\Mvc\\Model but does not specify its types#'
+        # MetaData\Stream: v6 source needs lowercase 'Metadata'; a loaded v5 extension
+        # reports 'MetaData'. Both resolve at runtime (class names are case-insensitive).
+        - '#Class Phalcon\\Mvc\\Model\\MetaData\\Stream referenced with incorrect case#'
