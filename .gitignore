@@ -1,4 +1,7 @@
+.env
 .idea
 .DS_Store
 public/.DS_Store
 vendor/
+tests/_output/*
+!tests/_output/.gitignore

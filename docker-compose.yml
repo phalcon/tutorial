@@ -1,76 +1,37 @@
-version: '3'
 services:
-
-  # Application - Vökuró
-  tutorial-8.0:
-    build: resources/docker/8.0
-    container_name: tutorial-8.0
-    tty: true
-    working_dir: /code
-    depends_on:
-      - tutorial-mysql
+  app:
+    build:
+      context: .
+      dockerfile: resources/docker/Dockerfile
+      args:
+        PHP_VERSION: ${PHP_VERSION:-8.4}
+        PHALCON_VARIANT: ${PHALCON_VARIANT:-v5}
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    container_name: ${PROJECT_PREFIX:-tutorial}-app
+    hostname: ${PROJECT_PREFIX:-tutorial}-app
+    ports:
+      - "${APP_PORT:-8080}:8080"
     volumes:
-      - ./:/code
-    networks:
-      - tutorial-network
-
-  tutorial-8.1:
-    build: resources/docker/8.1
-    container_name: tutorial-8.1
-    tty: true
-    working_dir: /code
+      - .:/srv
+      # Preserve the image's vendor/ (installed at build) from being shadowed by the bind mount
+      - /srv/vendor
+    env_file: .env
     depends_on:
-      - tutorial-mysql
-    volumes:
-      - ./:/code
-    networks:
-      - tutorial-network
+      mysql:
+        condition: service_healthy
 
-  tutorial-8.2:
-    build: resources/docker/8.2
-    container_name: tutorial-8.2
-    tty: true
-    working_dir: /code
-    depends_on:
-      - tutorial-mysql
-    volumes:
-      - ./:/code
-    networks:
-      - tutorial-network
-
-  tutorial-8.3:
-    build: resources/docker/8.3
-    container_name: tutorial-8.3
-    tty: true
-    working_dir: /code
-    depends_on:
-      - tutorial-mysql
-    volumes:
-      - ./:/code
-    networks:
-      - tutorial-network
-
-  # Database - Mysql
-  tutorial-mysql:
-    image: mysql:5.7
-    container_name: tutorial-mysql
-    tty: true
+  mysql:
+    image: mysql:8.0
+    container_name: ${PROJECT_PREFIX:-tutorial}-mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=secret
-      - MYSQL_USER=phalcon
-      - MYSQL_DATABASE=phalcon_tutorial
-      - MYSQL_PASSWORD=secret
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-secret}
+      MYSQL_DATABASE: ${DB_NAME:-tutorial}
     volumes:
-      - tutorial-volume:/var/lib/mysql/
-    networks:
-      - tutorial-network
-
-# Network
-networks:
-  tutorial-network:
-    driver: bridge
-
-# Volumes
-volumes:
-  tutorial-volume:
-    driver: local
+      - ./resources/schemas/tutorial.sql:/docker-entrypoint-initdb.d/tutorial.sql:ro
+    # No host port published: the app reaches the DB over the compose network as mysql:3306.
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${DB_PASSWORD:-secret}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
