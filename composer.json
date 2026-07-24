@@ -1,37 +1,54 @@
 {
     "name": "phalcon/tutorial",
-    "type": "library",
+    "type": "project",
     "description": "This is a sample application for the Phalcon PHP Framework",
-    "keywords": [
-        "phalcon",
-        "framework",
-        "sample app",
-        "tytiruak"
-    ],
+    "keywords": ["phalcon", "framework", "sample app", "tutorial"],
     "homepage": "https://phalcon.io",
     "license": "MIT",
     "authors": [
-        {
-            "name": "Phalcon Team",
-            "homepage": "https://github.com/phalcon"
-        },
-        {
-            "name": "Contributors",
-            "homepage": "https://github.com/phalcon/tutorial/graphs/contributors"
-        }
+        { "name": "Phalcon Team", "homepage": "https://github.com/phalcon" },
+        { "name": "Contributors", "homepage": "https://github.com/phalcon/tutorial/graphs/contributors" }
     ],
     "require": {
-        "php": ">=8.0",
-        "ext-openssl": "*",
-        "ext-phalcon": "^5.0.0",
-        "pds/skeleton": "^1.0"
+        "php": ">=8.1",
+        "ext-pdo": "*"
     },
     "require-dev": {
-        "phalcon/ide-stubs": "^v5.0.1"
+        "friendsofphp/php-cs-fixer": "^3.95",
+        "pds/composer-script-names": "^1.0",
+        "pds/skeleton": "^1.0",
+        "phalcon/phalcon": "^6.0@alpha",
+        "phalcon/phql": "1.0.x-dev",
+        "phalcon/talon": "^0.8",
+        "phalcon/volt": "1.0.x-dev",
+        "phpstan/phpstan": "^2.2",
+        "phpunit/phpunit": "^10.5",
+        "squizlabs/php_codesniffer": "^4.0"
+    },
+    "suggest": {
+        "ext-phalcon": "Install the Phalcon v5 C extension to run on v5 (the default); alternatively run on v6 via the phalcon/phalcon package - see the Dockerfile PHALCON_VARIANT build arg and the README."
     },
     "autoload": {
-        "psr-4": {
-            "Tutorial\\": "src/"
-        }
+        "psr-4": { "Tutorial\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Tutorial\\Tests\\": "tests/" }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {}
+    },
+    "scripts": {
+        "analyze": "phpstan analyse -c resources/phpstan.neon --memory-limit 1024M",
+        "cs": "phpcs --standard=resources/phpcs.xml",
+        "cs-fix": "phpcbf --standard=resources/phpcs.xml",
+        "cs-fixer": "php-cs-fixer fix --config=resources/php-cs-fixer.php --dry-run --diff",
+        "cs-fixer-fix": "php-cs-fixer fix --config=resources/php-cs-fixer.php",
+        "test": "talon run",
+        "post-create-project-cmd": [
+            "@php -r \"file_exists('.env') || copy('resources/.env.example', '.env');\""
+        ]
     }
 }

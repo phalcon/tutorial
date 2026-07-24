@@ -1,9 +1,11 @@
-Vökuró is an open source project and a volunteer effort.
+# Contributing
 
-*We only accept bug reports, new feature requests and pull requests in GitHub*.
+The Phalcon Tutorial is an open source project and a volunteer effort.
 
-Vökuró does not have human resources fully dedicated to the maintenance of this software.
-If you want something to be improved or you want a new feature please submit a Pull Request.
+*We only accept bug reports, new feature requests and pull requests on GitHub.*
 
-Thanks! <br />
+If you want something improved or you want a new feature, please submit a Pull Request.
+
+Thanks!
+
 Phalcon Team
