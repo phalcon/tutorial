@@ -39,7 +39,7 @@ return static function (): Application {
         return $url;
     });
 
-    // Database — reads env vars (set by docker-compose / CI) with local defaults
+    // Database - reads env vars (set by docker-compose / CI) with local defaults
     $container->set('db', function () {
         return new Mysql(
             [
