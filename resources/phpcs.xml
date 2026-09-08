@@ -2,14 +2,16 @@
 <ruleset name="Tutorial">
     <description>Phalcon Tutorial Coding Standards</description>
 
+    <!-- Arguments:
+         p = Show progress
+         s = Show sniff codes in output
+         colors = Force color output (optional, often auto-detected)
+    -->
     <arg name="colors"/>
     <arg value="ps"/>
 
-    <rule ref="PSR12">
-        <exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
-        <exclude name="PSR1.Files.SideEffects.FoundWithSymbols"/>
-    </rule>
-
+    <rule ref="Phalcon"/>
+    <file>../bin</file>
     <file>../src</file>
     <file>../public/index.php</file>
     <file>../tests</file>
