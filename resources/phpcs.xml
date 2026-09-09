@@ -11,7 +11,6 @@
     <arg value="ps"/>
 
     <rule ref="Phalcon"/>
-    <file>../bin</file>
     <file>../src</file>
     <file>../public/index.php</file>
     <file>../tests</file>
