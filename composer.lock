@@ -1118,16 +1118,16 @@
         },
         {
             "name": "phalcon/code-quality",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phalcon/code-quality.git",
-                "reference": "28852044c71b7c32f997f5b9d9b66506606ff590"
+                "reference": "07316915d0e76574ed26908de7c1aaa636fa6d60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/code-quality/zipball/28852044c71b7c32f997f5b9d9b66506606ff590",
-                "reference": "28852044c71b7c32f997f5b9d9b66506606ff590",
+                "url": "https://api.github.com/repos/phalcon/code-quality/zipball/07316915d0e76574ed26908de7c1aaa636fa6d60",
+                "reference": "07316915d0e76574ed26908de7c1aaa636fa6d60",
                 "shasum": ""
             },
             "require": {
@@ -1161,7 +1161,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phalcon/code-quality/issues",
-                "source": "https://github.com/phalcon/code-quality/tree/1.0.0"
+                "source": "https://github.com/phalcon/code-quality/tree/1.0.1"
             },
             "funding": [
                 {
@@ -1173,7 +1173,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2026-09-08T20:19:13+00:00"
+            "time": "2026-09-09T01:45:02+00:00"
         },
         {
             "name": "phalcon/phalcon",
